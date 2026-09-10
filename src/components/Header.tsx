@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import SearchOverlay from './SearchOverlay'
 import './Header.css'
 
 interface HeaderProps {
@@ -47,7 +48,7 @@ export default function Header({ cartCount }: HeaderProps) {
             <button
               className="icon-btn"
               aria-label="Search"
-              onClick={() => setSearchOpen(!searchOpen)}
+              onClick={() => setSearchOpen(true)}
             >
               <span className="material-symbols-outlined">search</span>
             </button>
@@ -68,17 +69,6 @@ export default function Header({ cartCount }: HeaderProps) {
             </button>
           </div>
         </div>
-
-        {searchOpen && (
-          <div className="search-bar">
-            <input
-              type="text"
-              placeholder="Search products, brands, categories..."
-              autoFocus
-            />
-            <span className="material-symbols-outlined">search</span>
-          </div>
-        )}
 
         {menuOpen && (
           <nav className="mobile-nav">
@@ -125,6 +115,8 @@ export default function Header({ cartCount }: HeaderProps) {
           </aside>
         </div>
       )}
+
+      <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }
