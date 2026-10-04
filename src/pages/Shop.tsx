@@ -24,6 +24,15 @@ export default function Shop() {
   const [selectedColor, setSelectedColor] = useState('#111111')
   const [mobileFilters, setMobileFilters] = useState(false)
 
+  const resetFilters = () => {
+    setSelectedCategory('All Apparel')
+    setSelectedSize('M')
+    setSort(sortOptions[0])
+    setPrice(90000)
+    setInStock(true)
+    setSelectedColor('#111111')
+  }
+
   let filtered = [...products]
   if (selectedCategory !== 'All Apparel') {
     filtered = filtered.filter((p) => p.category === selectedCategory)
@@ -32,7 +41,6 @@ export default function Shop() {
     filtered = filtered.filter((p) => p.sizes.includes(selectedSize))
   }
   filtered = filtered.filter((p) => p.price <= price)
-  if (inStock) filtered = filtered
   if (selectedColor) {
     filtered = filtered.filter((p) =>
       p.colors.some((c) => c.toLowerCase() === selectedColor.toLowerCase()),
@@ -233,6 +241,7 @@ export default function Shop() {
                 <div className="no-results">
                   <span className="material-symbols-outlined">search_off</span>
                   <p>No products match your filters.</p>
+                  <button onClick={resetFilters}>Clear all filters</button>
                 </div>
               )}
             </div>
